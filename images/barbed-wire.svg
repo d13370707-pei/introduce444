@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 30" width="100%" height="100%" preserveAspectRatio="none">
+  <!-- Main wire (twisted double line) -->
+  <line x1="0" y1="14" x2="1000" y2="14" stroke="#4a5363" stroke-width="1.8"/>
+  <line x1="0" y1="16" x2="1000" y2="16" stroke="#252a33" stroke-width="1.5"/>
+
+  <!-- Barbs spaced along wire -->
+  <g stroke="#8c96a8" stroke-width="2">
+    <!-- Barbs 1 -->
+    <path d="M95,8 L105,22 M105,8 L95,22 M92,15 L108,15"/>
+    <circle cx="100" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 2 -->
+    <path d="M245,8 L255,22 M255,8 L245,22 M242,15 L258,15"/>
+    <circle cx="250" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 3 -->
+    <path d="M395,8 L405,22 M405,8 L395,22 M392,15 L408,15"/>
+    <circle cx="400" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 4 -->
+    <path d="M545,8 L555,22 M555,8 L545,22 M542,15 L558,15"/>
+    <circle cx="550" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 5 -->
+    <path d="M695,8 L705,22 M705,8 L695,22 M692,15 L708,15"/>
+    <circle cx="700" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 6 -->
+    <path d="M845,8 L855,22 M855,8 L845,22 M842,15 L858,15"/>
+    <circle cx="850" cy="15" r="2.5" fill="#c93b3b"/>
+    <!-- Barbs 7 -->
+    <path d="M975,8 L985,22 M985,8 L975,22 M972,15 L988,15"/>
+    <circle cx="980" cy="15" r="2.5" fill="#c93b3b"/>
+  </g>
+</svg>
+

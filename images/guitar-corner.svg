@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 620" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bodyDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#242833" />
+      <stop offset="60%" stop-color="#15171d" />
+      <stop offset="100%" stop-color="#0c0d10" />
+    </linearGradient>
+    <linearGradient id="neckGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3d4452" />
+      <stop offset="50%" stop-color="#555f73" />
+      <stop offset="100%" stop-color="#2c323d" />
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8c96a8" />
+      <stop offset="100%" stop-color="#3f4756" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="-10" dy="15" stdDeviation="12" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Wall & Corner Shadow -->
+  <ellipse cx="140" cy="580" rx="100" ry="25" fill="#000000" opacity="0.6"/>
+
+  <g transform="rotate(14 160 380)" filter="url(#shadow)">
+    <!-- STRAP (Distressed worn canvas/leather with studs) -->
+    <path d="M120,490 C90,440 60,330 85,240 C95,200 115,160 135,120" stroke="#1f232b" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M120,490 C90,440 60,330 85,240 C95,200 115,160 135,120" stroke="#363d4a" stroke-width="1.5" stroke-dasharray="4,6" fill="none"/>
+
+    <!-- GUITAR BODY (Stratocaster / Offset Grunge Shape) -->
+    <!-- Outer Body -->
+    <path d="M130,280 C110,250 85,270 90,300 C95,330 115,350 110,380 C100,430 70,470 75,515 C82,565 140,580 185,570 C235,560 255,515 245,465 C235,420 205,395 210,365 C215,335 235,320 230,290 C225,260 200,270 180,280 Z" 
+          fill="url(#bodyDarkGrad)" stroke="#323846" stroke-width="3"/>
+
+    <!-- Worn Edges / Scratches (Wood showing through worn dark paint) -->
+    <path d="M76,505 C78,540 105,570 140,574" stroke="#4a5263" stroke-width="4" fill="none" opacity="0.5"/>
+    <path d="M88,295 C86,310 95,330 102,340" stroke="#4a5263" stroke-width="2.5" fill="none" opacity="0.6"/>
+    <!-- Slash mark / grunge sticker on body -->
+    <rect x="180" y="480" width="35" height="18" rx="2" fill="#c93b3b" opacity="0.75" transform="rotate(-15 180 480)"/>
+    <text x="183" y="493" fill="#fff" font-family="'Space Grotesk', sans-serif" font-size="7" font-weight="bold" transform="rotate(-15 180 480)">RAW 100%</text>
+
+    <!-- Duct Tape Cross on Lower Horn -->
+    <path d="M85,520 L115,540" stroke="#434c5c" stroke-width="8" opacity="0.8"/>
+    <path d="M115,520 L85,540" stroke="#373e4b" stroke-width="8" opacity="0.8"/>
+
+    <!-- PICKGUARD (Matte Black / Distressed Slate) -->
+    <path d="M135,310 C120,320 115,350 120,380 C125,410 110,440 115,480 C120,510 150,530 175,525 C205,520 215,485 205,450 C200,420 185,400 188,370 C190,340 205,330 200,310 Z" 
+          fill="#13151b" stroke="#252a34" stroke-width="2"/>
+
+    <!-- PICKUPS (Humbuckers & Single Coil with pole pieces) -->
+    <!-- Neck Pickup -->
+    <rect x="140" y="340" width="40" height="15" rx="3" fill="#1c2029" stroke="#3f4756" stroke-width="1.5"/>
+    <circle cx="145" cy="347" r="2.5" fill="#8c96a8"/><circle cx="153" cy="347" r="2.5" fill="#8c96a8"/>
+    <circle cx="160" cy="347" r="2.5" fill="#8c96a8"/><circle cx="167" cy="347" r="2.5" fill="#8c96a8"/><circle cx="175" cy="347" r="2.5" fill="#8c96a8"/>
+
+    <!-- Middle Pickup -->
+    <rect x="140" y="375" width="40" height="12" rx="3" fill="#1c2029" stroke="#3f4756" stroke-width="1.5"/>
+    <circle cx="145" cy="381" r="2" fill="#8c96a8"/><circle cx="153" cy="381" r="2" fill="#8c96a8"/>
+    <circle cx="160" cy="381" r="2" fill="#8c96a8"/><circle cx="167" cy="381" r="2" fill="#8c96a8"/><circle cx="175" cy="381" r="2" fill="#8c96a8"/>
+
+    <!-- Bridge Pickup -->
+    <rect x="139" y="410" width="42" height="16" rx="3" fill="#1c2029" stroke="#c93b3b" stroke-width="1.5"/>
+    <circle cx="145" cy="418" r="2.5" fill="#8c96a8"/><circle cx="153" cy="418" r="2.5" fill="#8c96a8"/>
+    <circle cx="160" cy="418" r="2.5" fill="#8c96a8"/><circle cx="167" cy="418" r="2.5" fill="#8c96a8"/><circle cx="175" cy="418" r="2.5" fill="#8c96a8"/>
+
+    <!-- BRIDGE (Chrome / Steel Tremolo with saddles) -->
+    <rect x="142" y="445" width="36" height="22" rx="2" fill="url(#metalGrad)" stroke="#1a1d24" stroke-width="1.5"/>
+    <!-- Whammy Bar (Vibrato arm sticking out) -->
+    <path d="M176,460 L195,475 L215,440" stroke="#a4b0c2" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+    <!-- VOLUME / TONE KNOBS & 5-WAY SWITCH -->
+    <circle cx="175" cy="485" r="7" fill="#1f232b" stroke="#5a6375" stroke-width="1.5"/>
+    <circle cx="188" cy="505" r="7" fill="#1f232b" stroke="#5a6375" stroke-width="1.5"/>
+    <line x1="160" y1="485" x2="168" y2="495" stroke="#a4b0c2" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- JACK PLATE & COILED GUITAR CABLE -->
+    <polygon points="205,530 225,545 220,555 200,540" fill="#2d3340" stroke="#5a6375" stroke-width="1.5"/>
+    <circle cx="212" cy="542" r="3" fill="#000"/>
+    <!-- Quarter-inch cable plugged in -->
+    <line x1="212" y1="542" x2="225" y2="552" stroke="#8c96a8" stroke-width="4"/>
+    <!-- Cable curling down to floor -->
+    <path d="M225,552 C250,575 270,550 250,590 C230,620 180,600 150,610" stroke="#121418" stroke-width="4.5" fill="none"/>
+    <path d="M225,552 C250,575 270,550 250,590 C230,620 180,600 150,610" stroke="#2c323e" stroke-width="2.5" fill="none"/>
+
+    <!-- NECK & FRETBOARD (Long, narrow, with fret wires and dot inlays) -->
+    <path d="M147,300 L152,70 L168,70 L173,300 Z" fill="url(#neckGrad)" stroke="#1a1d24" stroke-width="1.5"/>
+    <!-- Frets (horizontal lines getting narrower) -->
+    <line x1="148" y1="280" x2="172" y2="280" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="149" y1="250" x2="171" y2="250" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="149" y1="222" x2="171" y2="222" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="150" y1="195" x2="170" y2="195" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="150" y1="170" x2="170" y2="170" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="151" y1="147" x2="169" y2="147" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="151" y1="125" x2="169" y2="125" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="152" y1="105" x2="168" y2="105" stroke="#8c96a8" stroke-width="1"/>
+    <line x1="152" y1="87" x2="168" y2="87" stroke="#8c96a8" stroke-width="1"/>
+    <!-- Dot Inlays -->
+    <circle cx="160" cy="208" r="2.5" fill="#e2e4e8" opacity="0.8"/>
+    <circle cx="160" cy="158" r="2.5" fill="#e2e4e8" opacity="0.8"/>
+    <circle cx="160" cy="115" r="2.5" fill="#e2e4e8" opacity="0.8"/>
+    <!-- 12th fret double dot -->
+    <circle cx="157" cy="182" r="2" fill="#c93b3b" opacity="0.9"/>
+    <circle cx="163" cy="182" r="2" fill="#c93b3b" opacity="0.9"/>
+
+    <!-- HEADSTOCK (Classic Fender Style reversed/aggressive) -->
+    <path d="M152,70 C148,50 145,25 155,10 C162,2 175,12 178,25 C182,45 174,60 168,70 Z" fill="#242833" stroke="#363d4b" stroke-width="1.8"/>
+    <!-- Tuning Pegs (6 on top) -->
+    <circle cx="148" cy="18" r="3.5" fill="#8c96a8"/><line x1="145" y1="18" x2="138" y2="18" stroke="#a4b0c2" stroke-width="2"/>
+    <circle cx="150" cy="28" r="3.5" fill="#8c96a8"/><line x1="147" y1="28" x2="140" y2="28" stroke="#a4b0c2" stroke-width="2"/>
+    <circle cx="152" cy="38" r="3.5" fill="#8c96a8"/><line x1="149" y1="38" x2="142" y2="38" stroke="#a4b0c2" stroke-width="2"/>
+    <circle cx="154" cy="48" r="3.5" fill="#8c96a8"/><line x1="151" y1="48" x2="144" y2="48" stroke="#a4b0c2" stroke-width="2"/>
+    <circle cx="156" cy="58" r="3.5" fill="#8c96a8"/><line x1="153" y1="58" x2="146" y2="58" stroke="#a4b0c2" stroke-width="2"/>
+    <circle cx="158" cy="68" r="3.5" fill="#8c96a8"/><line x1="155" y1="68" x2="148" y2="68" stroke="#a4b0c2" stroke-width="2"/>
+
+    <!-- 6 STRINGS -->
+    <line x1="153" y1="70" x2="146" y2="450" stroke="#a4b0c2" stroke-width="1.2" opacity="0.85"/>
+    <line x1="156" y1="70" x2="151" y2="450" stroke="#a4b0c2" stroke-width="1.0" opacity="0.85"/>
+    <line x1="159" y1="70" x2="156" y2="450" stroke="#a4b0c2" stroke-width="0.9" opacity="0.85"/>
+    <line x1="162" y1="70" x2="161" y2="450" stroke="#c0c7d4" stroke-width="0.8" opacity="0.85"/>
+    <line x1="165" y1="70" x2="166" y2="450" stroke="#c0c7d4" stroke-width="0.7" opacity="0.85"/>
+    <line x1="168" y1="70" x2="171" y2="450" stroke="#c0c7d4" stroke-width="0.6" opacity="0.85"/>
+  </g>
+</svg>
+

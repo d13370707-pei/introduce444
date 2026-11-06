@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEI // UNDERGROUND ARCHIVE | 個人網站</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Fonts: Bebas Neue, Permanent Marker, Space Grotesk, Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&family=Permanent+Marker&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* 美式街頭頹廢暗色調 (低飽和、非大地色) */
+            --bg-base: #090a0d;
+            --bg-surface: #11141b;
+            --bg-card: #151821;
+            --bg-card-hover: #1c202c;
+
+            --border-raw: #282f3d;
+            --border-light: #3e4759;
+            --border-distressed: #4f5a6f;
+
+            --text-main: #e3e6ed;
+            --text-secondary: #8c96a8;
+            --text-muted: #565f72;
+
+            --accent-red: #c93b3b;
+            --accent-red-glow: rgba(201, 59, 59, 0.35);
+            --accent-steel: #546077;
+            --accent-slate: #73829c;
+            --tape-color: rgba(45, 52, 66, 0.85);
+            --tape-border: rgba(140, 155, 180, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            /* 工業雜訊與暗黑網格背景 */
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(30, 36, 48, 0.45) 0%, transparent 70%),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-main);
+            font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 頂部導覽列：美式街頭膠帶/金屬面板風格 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 7%;
+            background: rgba(14, 16, 22, 0.94);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--border-raw);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo {
+            font-family: 'Permanent Marker', 'Bebas Neue', cursive;
+            font-size: 32px;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .logo span.red-dot {
+            color: var(--accent-red);
+            font-size: 28px;
+            animation: redBlink 3s infinite;
+        }
+
+        .logo:hover {
+            color: var(--accent-red);
+            text-shadow: 0 0 10px var(--accent-red-glow);
+        }
+
+        @keyframes redBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Bebas Neue', 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            padding: 7px 14px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        nav button:hover {
+            color: var(--text-main);
+            border: 1px solid var(--border-distressed);
+            background: var(--bg-surface);
+            transform: translateY(-1px);
+        }
+
+        nav button.active {
+            color: #ffffff;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-red);
+            box-shadow: inset 0 -2px 0 var(--accent-red), 0 0 12px var(--accent-red-glow);
+        }
+
+        /* 頁面通用配置 */
+        .page {
+            display: none;
+            min-height: 85vh;
+            padding: 60px 8%;
+            animation: grungeFade 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes grungeFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+                filter: contrast(120%) brightness(80%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: none;
+            }
+        }
+
+        /* 標題與字體風格：美式街頭海報 typography */
+        .section-tag {
+            display: inline-block;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-red);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .english-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 6vw, 62px);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            line-height: 1.05;
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            font-size: 14.5px;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+        }
+
+        /* 鐵絲網分隔線 */
+        .barbed-divider {
+            width: 100%;
+            height: 22px;
+            background-image: url('images/barbed-wire.svg');
+            background-repeat: repeat-x;
+            background-size: 450px 22px;
+            margin: 45px 0;
+            opacity: 0.65;
+            filter: contrast(120%);
+        }
+
+        /* 膠帶效果裝飾 (Duct Tape) */
+        .tape {
+            position: absolute;
+            background: var(--tape-color);
+            border: 1px dashed var(--tape-border);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .tape-tl {
+            top: -10px;
+            left: -12px;
+            width: 60px;
+            height: 20px;
+            transform: rotate(-8deg);
+        }
+
+        .tape-tr {
+            top: -10px;
+            right: -12px;
+            width: 60px;
+            height: 20px;
+            transform: rotate(8deg);
+        }
+
+        /* HERO 首頁英雄區塊 */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            align-items: center;
+            gap: 50px;
+            min-height: 65vh;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        /* 破掉的翅膀背景浮水印 (Hero 背景) */
+        .hero-wings-bg {
+            position: absolute;
+            top: -20px;
+            left: -10%;
+            width: 120%;
+            height: 100%;
+            background: url('images/broken-wings.svg') no-repeat center center;
+            background-size: contain;
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: -1;
+            filter: grayscale(80%) contrast(140%);
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(65px, 9.5vw, 115px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+            color: #f1f3f7;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px #000, 0 0 25px rgba(255, 255, 255, 0.05);
+        }
+
+        .hero .intro {
+            font-size: 16.5px;
+            color: var(--text-secondary);
+            margin: 22px 0 15px;
+            line-height: 1.8;
+            border-left: 2px solid var(--border-distressed);
+            padding-left: 15px;
+        }
+
+        /* 代表自己的介紹與標語：美式頹廢塗鴉警語排版 */
+        .motto-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-distressed);
+            border-left: 5px solid var(--accent-red);
+            padding: 20px 24px;
+            margin: 24px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            position: relative;
+            background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.015) 10px, transparent 10px, transparent 20px);
+        }
+
+        .motto-badge {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .motto-text {
+            font-family: 'Permanent Marker', 'Noto Sans TC', cursive, sans-serif;
+            font-size: clamp(21px, 3.2vw, 26px);
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.9);
+        }
+
+        /* 菸頭元素 (Cigarette with Smoke & Ember) */
+        .cigarette-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border-raw);
+        }
+
+        .cigarette-img {
+            width: 75px;
+            height: 50px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8));
+            animation: emberPulse 2.8s infinite ease-in-out;
+        }
+
+        .cigarette-text {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @keyframes emberPulse {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 2px var(--accent-red));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 8px #ff4d4d);
+            }
+        }
+
+        /* 英雄照片：美式街頭海報框 + 膠帶 */
+        .hero-image-wrap {
+            position: relative;
+            background: var(--bg-surface);
+            padding: 12px;
+            border: 1px solid var(--border-distressed);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            transform: rotate(1deg);
+            transition: transform 0.4s ease;
+        }
+
+        .hero-image-wrap:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 420px;
+            background: #181c25;
+            overflow: hidden;
+            position: relative;
+            filter: contrast(108%) saturate(92%);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: filter 0.4s;
+        }
+
+        .hero-image-caption {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* 標籤 Tag 樣式：低飽和工業金屬標牌 */
+        .tag {
+            display: inline-block;
+            background: #161922;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-raw);
+            padding: 4px 13px;
+            font-size: 12px;
+            font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+            letter-spacing: 1px;
+            margin: 4px 4px 4px 0;
+            transition: 0.25s;
+        }
+
+        .tag:hover {
+            background: #202533;
+            color: var(--text-main);
+            border-color: var(--border-distressed);
+        }
+
+        /* 街頭快速按鈕 */
+        .hero-btn {
+            border: 1px solid var(--border-distressed);
+            background: var(--bg-surface);
+            color: var(--text-main);
+            padding: 11px 24px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .hero-btn.primary {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #ffffff;
+            box-shadow: 0 4px 15px var(--accent-red-glow);
+        }
+
+        .hero-btn.primary:hover {
+            background: #e04343;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-red-glow);
+        }
+
+        .hero-btn.secondary {
+            background: var(--bg-card);
+            border-color: var(--border-distressed);
+            color: var(--text-main);
+        }
+
+        .hero-btn.secondary:hover {
+            background: #1f2533;
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* 資料方格 Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 25px;
+        }
+
+        .info-item {
+            background: var(--bg-surface);
+            padding: 18px 22px;
+            border: 1px solid var(--border-raw);
+            border-left: 3px solid var(--border-distressed);
+            transition: 0.25s;
+        }
+
+        .info-item:hover {
+            border-left-color: var(--accent-red);
+            background: var(--bg-card);
+        }
+
+        .info-item small {
+            color: var(--accent-slate);
+            display: block;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-item p {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+
+        /* 卡片網格 Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-raw);
+            padding: 30px;
+            transition: 0.3s;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .card:hover {
+            border-color: var(--border-distressed);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+            background: var(--bg-card);
+        }
+
+        .card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            filter: contrast(120%) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            line-height: 1.8;
+        }
+
+        /* 專長區塊 Skills Box */
+        .skills-box {
+            background: var(--bg-surface);
+            padding: 36px;
+            border: 1px solid var(--border-distressed);
+            border-left: 4px solid var(--accent-steel);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .skills-content p {
+            color: var(--text-secondary);
+            font-size: 15.5px;
+            line-height: 1.9;
+        }
+
+        .skills-tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-raw);
+        }
+
+        .skills-group-title {
+            display: block;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 學習成果與作品集 Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            margin-top: 25px;
+        }
+
+        .portfolio-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-distressed);
+            overflow: hidden;
+            transition: 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-red);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 15px var(--accent-red-glow);
+        }
+
+        .portfolio-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #0f1117;
+            overflow: hidden;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-raw);
+        }
+
+        .portfolio-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease, filter 0.45s ease;
+            display: block;
+            filter: contrast(105%) saturate(95%);
+        }
+
+        .portfolio-img-wrap:hover img {
+            transform: scale(1.06);
+            filter: contrast(115%) saturate(105%);
+        }
+
+        .portfolio-zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(15, 18, 25, 0.88);
+            border: 1px solid var(--border-distressed);
+            color: #fff;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            padding: 5px 12px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-img-wrap:hover .portfolio-zoom-hint {
+            opacity: 1;
+        }
+
+        .portfolio-info {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .portfolio-category {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11.5px;
+            color: var(--accent-red);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .portfolio-info h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .portfolio-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .portfolio-tags {
+            margin-top: auto;
+            border-top: 1px dashed var(--border-raw);
+            padding-top: 12px;
+        }
+
+        /* 音樂卡片 Music Cards */
+        .music-section {
+            margin-bottom: 40px;
+        }
+
+        .music-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-distressed);
+            padding-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .music-card {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            background: var(--bg-surface);
+            padding: 22px;
+            border: 1px solid var(--border-raw);
+            border-left: 3px solid var(--border-distressed);
+            margin-bottom: 14px;
+            transition: 0.25s;
+        }
+
+        .music-card:hover {
+            background: var(--bg-card);
+            border-left-color: var(--accent-red);
+            transform: translateX(4px);
+        }
+
+        .music-number {
+            font-family: 'Bebas Neue', monospace;
+            font-size: 36px;
+            color: var(--accent-steel);
+            line-height: 1;
+        }
+
+        .music-card h3 {
+            font-size: 17px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .music-card p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* 學校與學習歷程 School Boxes */
+        .school-box {
+            background: var(--bg-surface);
+            padding: 35px;
+            border: 1px solid var(--border-distressed);
+            border-left: 4px solid var(--accent-steel);
+            margin-bottom: 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .school-box h2 {
+            font-size: 23px;
+            margin-bottom: 14px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .school-box p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* 證照卡片 Certificates */
+        .certificate {
+            text-align: center;
+            background: var(--bg-surface);
+            padding: 38px 22px;
+            border: 1px solid var(--border-distressed);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .certificate:hover {
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+            background: var(--bg-card);
+        }
+
+        .certificate .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .certificate h3 {
+            color: #ffffff;
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+
+        .certificate p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        /* 未來規劃 Future Plans */
+        .future-box {
+            background: var(--bg-surface);
+            padding: 36px;
+            border: 1px solid var(--border-distressed);
+            border-left: 4px solid var(--accent-red);
+            margin-top: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .future-badge {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .future-box h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .future-box p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        /* 聯絡資訊 Contact Box */
+        .contact-box {
+            background: var(--bg-surface);
+            padding: 40px;
+            border: 1px solid var(--border-distressed);
+            max-width: 680px;
+            position: relative;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .contact-box h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-box p {
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* 燈箱 Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(6, 7, 10, 0.94);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            animation: grungeFade 0.25s ease;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 2px solid var(--border-distressed);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
+            object-fit: contain;
+        }
+
+        .lightbox-caption {
+            color: var(--text-main);
+            margin-top: 16px;
+            font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: var(--text-main);
+            font-size: 42px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.2s;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-red);
+            transform: scale(1.15);
+        }
+
+        /* 頁尾 Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            background: #0a0c10;
+            border-top: 1px solid var(--border-raw);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ==================================================== */
+        /* 美式頹廢元素：角落吉他 (Corner Guitar Atmospheric Visual) */
+        /* ==================================================== */
+        .corner-guitar-fixed {
+            position: fixed;
+            bottom: -35px;
+            right: 15px;
+            width: 190px;
+            height: 380px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.42;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.9)) contrast(110%);
+            transition: opacity 0.3s;
+        }
+
+        /* 回到頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 44px;
+            height: 44px;
+            background: var(--bg-surface);
+            color: var(--text-main);
+            border: 1px solid var(--border-distressed);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            transition: 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* RWD 響應式調整 */
+        @media (max-width: 992px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .portfolio-img-wrap {
+                height: 420px;
+            }
+
+            .corner-guitar-fixed {
+                width: 130px;
+                height: 260px;
+                opacity: 0.24;
+                right: 5px;
+                bottom: -20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 14px;
+                padding: 16px 5%;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            nav button {
+                font-size: 13.5px;
+                padding: 5px 8px;
+            }
+
+            .page {
+                padding: 40px 6%;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero-image {
+                height: 320px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-img-wrap {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 固定背景裝飾：右下角落的吉他 (Corner Electric Guitar) -->
+    <div class="corner-guitar-fixed">
+        <img src="images/guitar-corner.svg" alt="Distressed Corner Electric Guitar"
+            style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+
+    <header>
+        <div class="logo" onclick="showPage('home')">
+            PEI<span class="red-dot">.</span>
+        </div>
+
+        <nav>
+            <button class="active" onclick="showPage('home',this)">// 首頁 HOME</button>
+            <button onclick="showPage('about',this)">// 關於我 ABOUT</button>
+            <button onclick="showPage('hobbies',this)">// 興趣與專長 HOBBIES</button>
+            <button onclick="showPage('portfolio',this)">// 成果與作品 PORTFOLIO</button>
+            <button onclick="showPage('music',this)">// 音樂 MUSIC</button>
+            <button onclick="showPage('school',this)">// 學校 SCHOOL</button>
+            <button onclick="showPage('contact',this)">// 聯絡 CONTACT</button>
+        </nav>
+    </header>
+
+    <!-- ==================== HOME ==================== -->
+    <section id="home" class="page active">
+
+        <div class="hero">
+            <!-- 破掉的翅膀背景浮水印 -->
+            <div class="hero-wings-bg"></div>
+
+            <div>
+                <span class="section-tag">[ ARCHIVE // RAW &amp; UNFILTERED ]</span>
+                <h1>HELLO,<br>I'M PEI.</h1>
+
+                <!-- 代表自己的介紹與標語 (美式街頭頹廢風格 + 菸頭元素) -->
+                <div class="motto-card">
+                    <div class="tape tape-tl"></div>
+                    <div class="tape tape-tr"></div>
+
+                    <span class="motto-badge">✦ PERSONAL MOTTO // 人生座右銘</span>
+                    <p class="motto-text">【沒有熱情的活著，不如死了算了】</p>
+
+                    <!-- 空白處美式頹廢元素：菸頭、燃燒微光與煙霧 -->
+                    <div class="cigarette-badge">
+                        <img src="images/cigarette.svg" class="cigarette-img" alt="Cigarette Butt with Smoke">
+                        <div class="cigarette-text">
+                            // BURN WITH PASSION OR BURN TO ASHES<br>
+                            <span style="color: var(--accent-red); font-size: 10.5px;">BURNING EMBER · NO
+                                COMPROMISE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="intro">
+                    一個喜歡藝術、音樂與生活的人。<br>
+                    歡迎來到我的個人介紹網站。
+                </p>
+
+                <div style="margin-bottom: 20px;">
+                    <span class="tag"># 創造 Creative</span>
+                    <span class="tag"># 搖滾與流行音樂 Music</span>
+                    <span class="tag"># 街頭風格 Dreamer</span>
+                    <span class="tag"># 多媒體動畫 Animation</span>
+                </div>
+
+                <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                    <button class="hero-btn primary" onclick="showPage('portfolio')">查看作品集 // PORTFOLIO →</button>
+                    <button class="hero-btn secondary" onclick="showPage('about')">更詳細的關於我 // ABOUT →</button>
+                </div>
+            </div>
+
+            <!-- 英雄照片：街頭海報貼飾風格 -->
+            <div class="hero-image-wrap">
+                <div class="tape tape-tl"></div>
+                <div class="tape tape-tr"></div>
+
+                <div class="hero-image">
+                    <img src="images/8.jpg" alt="Pei">
+                </div>
+
+                <div class="hero-image-caption">
+                    <span>SYS_ID: PEI-2026</span>
+                    <span style="color: var(--accent-red);">[ VERIFIED ARCHIVE ]</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 鐵絲網分隔線 -->
+        <div class="barbed-divider"></div>
+
+        <span class="section-tag">[ PROFILE // 01 ]</span>
+        <h2 class="english-title">基本資料 / Basic Info</h2>
+        <p class="subtitle">一些關於我的基本資料與個人檔案</p>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <small>// 名字 NAME</small>
+                <p>珮 / Pei</p>
+            </div>
+            <div class="info-item">
+                <small>// 性別 GENDER</small>
+                <p>女</p>
+            </div>
+            <div class="info-item">
+                <small>// 就讀學校 UNIVERSITY</small>
+                <p>台南應用科技大學</p>
+            </div>
+            <div class="info-item">
+                <small>// 科系 DEPARTMENT</small>
+                <p>多媒體動畫系</p>
+            </div>
+            <div class="info-item">
+                <small>// 年級 GRADE</small>
+                <p>三年級</p>
+            </div>
+            <div class="info-item">
+                <small>// 生日 BIRTHDAY</small>
+                <p>2006 / 04 / 14</p>
+            </div>
+            <div class="info-item">
+                <small>// 星座 ZODIAC</small>
+                <p>牡羊座 ♈</p>
+            </div>
+            <div class="info-item">
+                <small>// 人格特質 MBTI</small>
+                <p
+                    style="color: var(--accent-red); font-family: 'Bebas Neue', monospace; font-size: 22px; letter-spacing: 1px;">
+                    ESFP</p>
+            </div>
+        </div>
+
+        <br><br>
+        <div
+            style="background: var(--bg-surface); padding: 22px 28px; border: 1px solid var(--border-raw); border-left: 3px solid var(--accent-steel);">
+            <h3 style="font-size: 17px; margin-bottom: 6px; color: #fff;">// 興趣簡介 MY INTERESTS</h3>
+            <p style="color: var(--text-secondary);">畫圖、看動漫、聽音樂、跳舞</p>
+        </div>
+
+    </section>
+
+    <!-- ==================== ABOUT (更詳細的關於我) ==================== -->
+    <section id="about" class="page">
+
+        <span class="section-tag">[ IDENTITY // 02 ]</span>
+        <h1 class="english-title">關於我 / About Me</h1>
+        <p class="subtitle">深入探索我的創意思維、實作態度與核心能力特質</p>
+
+        <!-- 破掉的翅膀象徵：美式街頭橫幅 -->
+        <div
+            style="position: relative; background: var(--bg-surface); border: 1px solid var(--border-distressed); padding: 28px; margin-bottom: 35px; overflow: hidden;">
+            <div
+                style="position: absolute; right: 0; top: 0; width: 320px; height: 100%; background: url('images/broken-wings.svg') no-repeat right center; background-size: contain; opacity: 0.15; pointer-events: none;">
+            </div>
+
+            <div class="tape tape-tl"></div>
+            <span class="motto-badge">✦ CORE SPIRIT // 核心精神</span>
+            <p class="motto-text" style="font-size: 24px; margin: 8px 0;">【沒有熱情的活著，不如死了算了】</p>
+            <p style="color: var(--text-secondary); font-size: 14.5px; max-width: 650px;">
+                熱情是所有創意的起點。面對創作與技術實務，不設限既定規則，勇於打破常規、自主鑽研並在每次實作中找出突破點。
+            </p>
+        </div>
+
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="tape tape-tl"></div>
+                <div class="icon">💡</div>
+                <h3>創意思考</h3>
+                <p>
+                    喜歡嘗試不同的視覺風格，能將想法轉化為具體的設計作品。
+                </p>
+                <div style="margin-top: 18px;">
+                    <span class="tag"># 視覺風格</span>
+                    <span class="tag"># 概念轉化</span>
+                    <span class="tag"># 靈感實踐</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="tape tape-tr"></div>
+                <div class="icon">📖</div>
+                <h3>自主學習</h3>
+                <p>
+                    面對不熟悉的軟體或技術，願意自己研究、嘗試並找出解決方法。
+                </p>
+                <div style="margin-top: 18px;">
+                    <span class="tag"># 主動探索</span>
+                    <span class="tag"># 技術鑽研</span>
+                    <span class="tag"># 自我突破</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="tape tape-tl"></div>
+                <div class="icon">🛠️</div>
+                <h3>實作能力</h3>
+                <p>
+                    不只停留在想法，也願意實際操作不同工具完成作品。
+                </p>
+                <div style="margin-top: 18px;">
+                    <span class="tag"># 工具掌握</span>
+                    <span class="tag"># 動手實踐</span>
+                    <span class="tag"># 作品產出</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="tape tape-tr"></div>
+                <div class="icon">🔍</div>
+                <h3>問題解決能力</h3>
+                <p>
+                    製作過程中遇到技術問題時，會嘗試不同方法找出原因。
+                </p>
+                <div style="margin-top: 18px;">
+                    <span class="tag"># 原因探究</span>
+                    <span class="tag"># 排除困難</span>
+                    <span class="tag"># 經驗累積</span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================== HOBBIES & SKILLS ==================== -->
+    <section id="hobbies" class="page">
+
+        <span class="section-tag">[ PASSION // 03 ]</span>
+        <h1 class="english-title">興趣 / My Hobbies</h1>
+        <p class="subtitle">興趣是生活不可缺少的靈感來源</p>
+
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="icon">🎨</div>
+                <h3>Drawing｜畫圖</h3>
+                <p>
+                    喜歡透過畫畫表達自己的想法，
+                    從角色設計到插畫創作，
+                    享受把腦海中的想像變成作品的過程。
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎬</div>
+                <h3>Anime｜看電影、影集</h3>
+                <p>
+                    喜歡看不同類型的作品，
+                    欣賞角色設定、劇情發展與精緻的畫面，
+                    每一部作品都能帶給我不同的感受。
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎧</div>
+                <h3>Music｜聽音樂</h3>
+                <p>
+                    音樂是日常生活中不可缺少的一部分。
+                    喜歡 K-pop、西洋音樂和 J-pop，
+                    不同風格的歌曲都能帶來不同心情。
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">💃</div>
+                <h3>Dancing｜跳舞</h3>
+                <p>
+                    喜歡跟著音樂跳舞，
+                    尤其是喜歡舞蹈與音樂結合的感覺，
+                    享受透過肢體表達自己的過程。
+                </p>
+            </div>
+
+        </div>
+
+        <!-- 鐵絲網分隔線 -->
+        <div class="barbed-divider"></div>
+
+        <!-- 專長區域 -->
+        <span class="section-tag">[ EXPERTISE // SPECIALTIES ]</span>
+        <h1 class="english-title">專長 / My Specialties</h1>
+        <p class="subtitle">將創意轉化為具體作品的專業能力與工具掌握</p>
+
+        <div class="skills-box">
+            <div class="tape tape-tl"></div>
+            <div class="tape tape-tr"></div>
+
+            <div class="skills-content">
+                <p>
+                    我的專長主要在多媒體設計與動畫製作，對視覺設計、角色創作及影像製作有興趣，也具備基本的美術設計與創意思考能力。平時會使用 After Effects、Premiere、CapCut
+                    等軟體進行影片剪輯與動畫製作，也接觸過 Blender、Unity 等工具，能夠將創意轉化成實際的作品。
+                </p>
+                <p style="margin-top: 16px;">
+                    除此之外，我也喜歡嘗試不同的設計方式，遇到不熟悉的軟體或技術時，會透過查找資料及實際操作來解決問題，並從製作過程中累積經驗。
+                </p>
+            </div>
+
+            <div class="skills-tags-grid">
+                <div>
+                    <span class="skills-group-title">🎬 影片剪輯與動畫製作</span>
+                    <div>
+                        <span class="tag">After Effects</span>
+                        <span class="tag">Premiere</span>
+                        <span class="tag">CapCut</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="skills-group-title">🧊 3D 與互動開發工具</span>
+                    <div>
+                        <span class="tag">Blender</span>
+                        <span class="tag">Unity</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="skills-group-title">🎨 核心專業領域</span>
+                    <div>
+                        <span class="tag">多媒體設計</span>
+                        <span class="tag">動畫製作</span>
+                        <span class="tag">視覺設計</span>
+                        <span class="tag">角色創作</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==================== PORTFOLIO (學習成果與作品集) ==================== -->
+    <section id="portfolio" class="page">
+
+        <span class="section-tag">[ EXHIBITION // 04 ]</span>
+        <h1 class="english-title">學習成果與作品集 / Portfolio</h1>
+        <p class="subtitle">精選插畫創作、視覺設計與多媒體實作成果（點擊圖片可放大查看）</p>
+
+        <div class="portfolio-grid">
+
+            <!-- 作品 1 -->
+            <div class="portfolio-card">
+                <div class="portfolio-img-wrap" onclick="openLightbox('images/1.PNG', '作品說明 1：《我的英雄學院》蛙吹梅雨 角色繪製')">
+                    <img src="images/1.PNG" alt="作品1 - 蛙吹梅雨角色繪製">
+                    <div class="portfolio-zoom-hint">🔍 CLICK TO ENLARGE</div>
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">Character Illustration｜二創角色插畫</span>
+                    <h3>《我的英雄學院》蛙吹梅雨 角色繪製</h3>
+                    <p>
+                        針對《我的英雄學院》人氣角色「蛙吹梅雨」進行的二次創作插畫。作品著重於生動展現角色的肢體動態與可愛神情，特別挑戰了自然的蹲姿與穿脫襪子時的手部、足部線條細節。在光影渲染上運用柔和清新且具立體感的層次，展現對角色設計、人體骨架結構及色彩氣氛的掌握能力。
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="tag"># 角色設計</span>
+                        <span class="tag"># 人體動態</span>
+                        <span class="tag"># 二創插畫</span>
+                        <span class="tag"># 數位上色</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 作品 2 -->
+            <div class="portfolio-card">
+                <div class="portfolio-img-wrap"
+                    onclick="openLightbox('images/2.PNG', '作品說明 2：聖誕主題美式插畫｜Merry Christmas')">
+                    <img src="images/2.PNG" alt="作品2 - 聖誕主題美式插畫">
+                    <div class="portfolio-zoom-hint">🔍 CLICK TO ENLARGE</div>
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">Pop Art &amp; Poster｜美式普普風插畫</span>
+                    <h3>聖誕主題美式插畫｜Merry Christmas</h3>
+                    <p>
+                        以聖誕佳節為靈感創作的原創角色海報插畫。大膽採用美式普普藝術（Pop Art）風格，結合半色調網點（Halftone
+                        Dots）、鮮豔飽和的色彩撞色與動感立體英文字體設計。透過生動的原創人物設定與滿版視覺構圖，傳遞活潑熱鬧、具有強烈個人設計風格與視覺衝擊力的節慶氛圍。
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="tag"># 原創角色</span>
+                        <span class="tag"># 美式普普風</span>
+                        <span class="tag"># Halftone 網點</span>
+                        <span class="tag"># 節慶視覺</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 作品 3 -->
+            <div class="portfolio-card">
+                <div class="portfolio-img-wrap" onclick="openLightbox('images/3.PNG', '作品說明 3：街頭潮流角色海報設計｜PRETTY 2025')">
+                    <img src="images/3.PNG" alt="作品3 - 街頭潮流角色海報設計">
+                    <div class="portfolio-zoom-hint">🔍 CLICK TO ENLARGE</div>
+                </div>
+                <div class="portfolio-info">
+                    <span class="portfolio-category">Street Fashion Layout｜潮流海報設計</span>
+                    <h3>街頭潮流角色海報設計｜PRETTY 2025</h3>
+                    <p>
+                        將現代街頭潮流文化、平面幾何排版與動漫角色插畫相互融合的海報設計作品。以明亮且具現代感的暖橘與亮黃作為主色調，巧妙融入條碼（Barcode）、幾何色塊、斜線符號與手寫感標準字，展現大膽自信的人物姿態與前衛時尚的視覺排版功力，體現將插畫作品轉化為商業視覺海報的實作成果。
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="tag"># 潮流海報</span>
+                        <span class="tag"># 平面排版</span>
+                        <span class="tag"># 暖色調對比</span>
+                        <span class="tag"># 商業視覺</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================== MUSIC ==================== -->
+    <section id="music" class="page">
+
+        <span class="section-tag">[ PLAYLIST // 05 ]</span>
+        <h1 class="english-title">音樂 / My Favorite Music</h1>
+        <p class="subtitle">音樂是生活中不可缺少的陪伴與節奏</p>
+
+        <div class="music-section">
+            <h2>// K-POP 韓國流行音樂</h2>
+
+            <div class="music-card">
+                <div class="music-number">01</div>
+                <div>
+                    <h3>BTS 防彈少年團</h3>
+                    <p>
+                        以多元的音樂風格聞名，融合 Hip-hop、
+                        Pop、R&B 等元素，陪我走過十年的低潮。
+                        / 特別喜歡的歌曲是 Love Maze、2!3!
+                    </p>
+                </div>
+            </div>
+
+            <div class="music-card">
+                <div class="music-number">02</div>
+                <div>
+                    <h3>SEVENTEEN 17</h3>
+                    <p>
+                        以團體創作與表演能力受到關注，
+                        音樂風格涵蓋流行、舞曲與抒情歌曲，
+                        充滿活力的編舞和著名的刀群舞也是他們的一大特色。
+                        / 特別喜歡的歌曲是 Cilli
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="music-section">
+            <h2>// 西洋樂 WESTERN MUSIC</h2>
+
+            <div class="music-card">
+                <div class="music-number">03</div>
+                <div>
+                    <h3>Taylor Swift 泰勒絲</h3>
+                    <p>
+                        美國創作歌手，音樂涵蓋 Country、
+                        Pop 與 Indie 等風格。
+                        擅長透過細膩的歌詞描述愛情、
+                        成長與生活中的各種故事。
+                        / 特別喜歡的歌曲是 Red、Gorgeous
+                    </p>
+                </div>
+            </div>
+
+            <div class="music-card">
+                <div class="music-number">04</div>
+                <div>
+                    <h3>Doja Cat</h3>
+                    <p>
+                        美國歌手與饒舌創作者，
+                        擅長融合 Pop、Hip-hop 與 R&B，
+                        音樂風格多變，具有強烈的個人特色，
+                        我特別喜歡他的嗓音。
+                        / 特別喜歡的歌曲是 Need To Know
+                    </p>
+                </div>
+            </div>
+
+            <div class="music-card">
+                <div class="music-number">05</div>
+                <div>
+                    <h3>Avril Lavigne 艾薇兒</h3>
+                    <p>
+                        加拿大搖滾天后，以 Pop Punk 和
+                        Alternative Rock 風格震撼樂壇。
+                        作品充滿青春、叛逆個性與龐克搖滾氣息。
+                        / 特別喜歡的歌曲是 Girlfriend
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="music-section">
+            <h2>// J-POP 日本流行音樂</h2>
+
+            <div class="music-card">
+                <div class="music-number">06</div>
+                <div>
+                    <h3>優里（Yuuri）</h3>
+                    <p>
+                        日本創作型歌手，以充滿情感的歌聲
+                        和細膩的抒情歌曲受到喜愛。
+                        擅長透過旋律與歌詞傳達情緒，
+                        作品具有很強的感染力。
+                        / 特別喜歡的歌曲是乾燥花
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==================== SCHOOL ==================== -->
+    <section id="school" class="page">
+
+        <span class="section-tag">[ ACADEMIC // 06 ]</span>
+        <h1 class="english-title">關於我的學校 / My School</h1>
+        <p class="subtitle">我的學習環境與專業技能養成地</p>
+
+        <div class="school-box">
+            <h2>台南應用科技大學 / Tainan University of Technology</h2>
+            <p>
+                台南應用科技大學位於台南市，
+                是一所以藝術、設計及應用領域為特色的學校。
+                學校提供多元的專業學習環境，
+                讓學生能夠培養創意、實務能力與專業技能。
+            </p>
+        </div>
+
+        <div class="school-box">
+            <h2>多媒體動畫系 / Department of Multimedia and Animation</h2>
+            <p>
+                我目前就讀於多媒體動畫系三年級。
+                這個科系結合藝術設計與數位科技，
+                學習內容包含動畫製作、角色設計、
+                影像處理、3D 建模及多媒體創作等領域。
+            </p>
+
+            <br>
+            <h3 style="font-size: 16px; margin-bottom: 10px; color: #fff;">// 專業學習範疇 LEARNING DOMAINS</h3>
+            <span class="tag">2D動畫｜2D Animation</span>
+            <span class="tag">3D 建模｜3D Modeling</span>
+            <span class="tag">角色設計｜Character Design</span>
+            <span class="tag">數位藝術｜Digital Art</span>
+            <span class="tag">影片剪輯｜Video Editing</span>
+            <span class="tag">多媒體設計｜Multimedia Design</span>
+        </div>
+
+        <div class="school-box">
+            <h2>學習歷程 / My Learning Journey</h2>
+            <p>
+                在學習的過程中，我逐漸接觸不同的設計工具
+                與創作方式，也透過課堂專題累積實作經驗。
+                希望未來能持續提升自己的設計能力，
+                創作出更多有趣且具有特色的作品。
+            </p>
+        </div>
+
+    </section>
+
+    <!-- ==================== CONTACT, FUTURE PLANS & CERTIFICATES ==================== -->
+    <section id="contact" class="page">
+
+        <span class="section-tag">[ CREDENTIALS // 07 ]</span>
+        <h1 class="english-title">證照 / Certificates</h1>
+        <p class="subtitle">我的專業證照與技能檢定認證</p>
+
+        <div class="card-grid">
+
+            <div class="certificate">
+                <div class="tape tape-tl"></div>
+                <div class="icon">📜</div>
+                <h3>印前製程丙級</h3>
+                <p>印前製程技術士技能檢定</p>
+                <span class="tag">Professional Certificate</span>
+            </div>
+
+            <div class="certificate">
+                <div class="tape tape-tr"></div>
+                <div class="icon">📐</div>
+                <h3>建築製圖丙級</h3>
+                <p>建築製圖技術士技能檢定</p>
+                <span class="tag">Professional Certificate</span>
+            </div>
+
+        </div>
+
+        <!-- 鐵絲網分隔線 -->
+        <div class="barbed-divider"></div>
+
+        <!-- 未來規劃 -->
+        <span class="section-tag">[ ASPIRATIONS // ROADMAP ]</span>
+        <h1 class="english-title">未來規劃 / Future Plans</h1>
+        <p class="subtitle">深耕專業能力與拓展多元領域的長遠藍圖</p>
+
+        <div class="future-box">
+            <div class="tape tape-tl"></div>
+            <div class="tape tape-tr"></div>
+
+            <span class="future-badge">✦ GOALS &amp; VISION // 未來願景</span>
+            <h3>持續精進與未來展望</h3>
+            <p>
+                未來希望能持續提升自己在動畫設計與多媒體領域的專業能力，除了加強動畫製作、角色設計及影像編輯技巧，也希望能進一步學習互動設計、網頁設計及新興數位技術。
+            </p>
+            <p style="margin-top: 15px;">
+                在學期間，希望能多累積不同類型的作品，建立屬於自己的作品集，並透過實際專題與團隊合作增加經驗。
+            </p>
+            <p style="margin-top: 15px;">
+                畢業後，希望能朝動畫設計、多媒體設計或相關創意產業發展，找到自己真正感興趣且能持續發揮創意的方向。
+            </p>
+            <div style="margin-top: 22px;">
+                <span class="tag"># 動畫設計</span>
+                <span class="tag"># 角色設計</span>
+                <span class="tag"># 影像編輯</span>
+                <span class="tag"># 互動設計</span>
+                <span class="tag"># 網頁設計</span>
+                <span class="tag"># 新興數位技術</span>
+                <span class="tag"># 專題團隊合作</span>
+                <span class="tag"># 創意產業</span>
+            </div>
+        </div>
+
+        <br>
+
+        <!-- 聯絡方式 -->
+        <span class="section-tag">[ GET IN TOUCH ]</span>
+        <h1 class="english-title">與我聯絡 / Contact Me</h1>
+        <p class="subtitle">感謝你來認識我！歡迎交流與合作</p>
+
+        <div class="contact-box">
+            <div class="tape tape-tl"></div>
+            <h2>LET'S CONNECT // 交流與合作</h2>
+            <p>如果你對我的作品或興趣有興趣，歡迎隨時與我聯繫交流。</p>
+
+            <div style="margin-top: 20px; font-family: 'Space Grotesk', monospace; font-size: 15px;">
+                <p>✉ EMAIL: <span style="color: var(--text-main);">d13370707@gm.tut.edu.tw</span></p>
+                <p>📷 INSTAGRAM: <span style="color: var(--accent-red);">Peiyu661</span></p>
+                <p>🌷 NAME: <span style="color: var(--text-main);">珮 Pei</span></p>
+            </div>
+
+            <!-- 空白角落美式頹廢元素：菸頭殘灰與街頭標章 -->
+            <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-top: 25px;">
+                <img src="images/cigarette.svg"
+                    style="width: 80px; height: 50px; opacity: 0.8; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));"
+                    alt="Cigarette">
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 圖片放大燈箱 Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="作品放大圖" onclick="event.stopPropagation()">
+        <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+
+    <!-- 回到頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">▲</button>
+
+    <footer>
+        [ ARCHIVE 2026 ] // PEI PERSONAL PORTFOLIO · ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        function showPage(pageId, button, updateHash = true) {
+            // 隱藏所有頁面
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 顯示選擇的頁面
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 更新導覽列樣式
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (button) {
+                button.classList.add('active');
+            } else {
+                // 若未傳遞按鈕，自動配對目標頁面的導覽按鈕
+                const matchingBtn = Array.from(buttons).find(b => b.getAttribute('onclick')?.includes(`'${pageId}'`));
+                if (matchingBtn) {
+                    matchingBtn.classList.add('active');
+                }
+            }
+
+            // 更新網址 Hash (方便分享連結與上一頁/下一頁切換)
+            if (updateHash) {
+                history.replaceState(null, '', '#' + pageId);
+            }
+
+            // 切換頁面後平滑滾動回頂部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 頁面載入時檢查 URL Hash
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                showPage(hash, null, false);
+            }
+        });
+
+        // 瀏覽器上一頁 / 下一頁切換支援
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            if (document.getElementById(hash)) {
+                showPage(hash, null, false);
+            }
+        });
+
+        // 回到頂部按鈕滾動監聽
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Lightbox 燈箱開關函式
+        function openLightbox(src, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const cap = document.getElementById('lightbox-caption');
+            img.src = src;
+            cap.textContent = caption || '';
+            lightbox.classList.add('open');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('open');
+        }
+
+        // 按 ESC 鍵關閉燈箱
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

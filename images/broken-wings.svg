@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%" opacity="0.85">
+  <defs>
+    <!-- Grunge Filters & Gradients -->
+    <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a5263" />
+      <stop offset="50%" stop-color="#232731" />
+      <stop offset="100%" stop-color="#121419" />
+    </linearGradient>
+    <linearGradient id="boneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8c96a8" />
+      <stop offset="100%" stop-color="#2d3340" />
+    </linearGradient>
+    <linearGradient id="redAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c93b3b" />
+      <stop offset="100%" stop-color="#4a1515" />
+    </linearGradient>
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Splatters & Grunge Particles -->
+  <g fill="#c93b3b" opacity="0.35">
+    <circle cx="450" cy="180" r="3"/>
+    <circle cx="456" cy="175" r="1.5"/>
+    <circle cx="442" cy="190" r="2"/>
+    <circle cx="430" cy="210" r="1.5"/>
+    <circle cx="468" cy="205" r="2.5"/>
+    <path d="M448,185 Q450,220 449,245" stroke="#c93b3b" stroke-width="1.5" fill="none"/>
+    <circle cx="449" cy="248" r="2"/>
+    <circle cx="310" cy="260" r="2"/>
+    <circle cx="280" cy="290" r="1.5"/>
+    <circle cx="620" cy="240" r="2.5"/>
+    <circle cx="650" cy="270" r="1.5"/>
+  </g>
+
+  <!-- CENTER CORE / SPINAL JOINT (Fractured) -->
+  <g stroke="#1a1d24" stroke-width="2">
+    <polygon points="450,140 435,160 445,190 450,230 455,190 465,160" fill="url(#boneGrad)" />
+    <!-- Cracks on center bone -->
+    <path d="M448,150 L442,165 L446,175 L439,190" stroke="#c93b3b" stroke-width="1.8" fill="none"/>
+    <path d="M452,160 L457,172 L453,185 L460,205" stroke="#000" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- LEFT WING (Torn, Severely Fractured & Broken Off) -->
+  <g id="left-wing">
+    <!-- Main upper wing bone (snapped at mid-joint) -->
+    <path d="M440,150 C380,130 310,120 260,150 L270,165 C305,145 365,150 435,170 Z" fill="url(#boneGrad)" stroke="#16181f" stroke-width="2"/>
+    <!-- Snapped jagged bone ends -->
+    <polygon points="260,150 245,145 255,155 240,158 258,166 270,165" fill="#a4b0c2" stroke="#c93b3b" stroke-width="1.5"/>
+    
+    <!-- Broken off floating bone piece -->
+    <polygon points="215,135 170,110 185,125 150,115 175,135 225,145" fill="url(#boneGrad)" opacity="0.6" stroke="#2b313d" stroke-width="1.5"/>
+
+    <!-- Primary torn feathers (tattered, jagged) -->
+    <path d="M430,175 C370,190 320,230 280,290 C290,265 315,230 350,210 C310,235 280,285 240,350 C260,305 295,255 340,230 C295,265 260,330 220,400 C235,340 270,280 320,245 C280,280 245,340 210,410 C225,345 260,285 305,255 C265,300 230,365 195,435 C210,360 250,295 295,265 Z" fill="url(#wingGrad)" stroke="#16181f" stroke-width="1.5"/>
+
+    <!-- Ragged secondary inner feathers -->
+    <path d="M435,175 C390,200 350,230 325,280 C340,250 370,225 410,205 C380,235 345,280 320,335 C335,290 370,245 420,220 Z" fill="#1b1e26" stroke="#2d3340" stroke-width="1"/>
+    
+    <!-- Ripped cuts & slashes through left wing -->
+    <path d="M340,190 L320,230 M310,210 L285,260 M265,245 L245,295" stroke="#0c0d10" stroke-width="3" stroke-linecap="round"/>
+    <path d="M338,192 L318,232 M308,212 L283,262" stroke="#c93b3b" stroke-width="1"/>
+  </g>
+
+  <!-- RIGHT WING (Larger, Tattered, Pierced, Grunge Dark Feathers) -->
+  <g id="right-wing">
+    <!-- Main wing bone arch -->
+    <path d="M460,150 C520,120 600,100 680,110 C740,120 800,150 850,200 L840,212 C795,170 735,140 675,130 C605,120 530,140 465,170 Z" fill="url(#boneGrad)" stroke="#16181f" stroke-width="2"/>
+
+    <!-- Feathers top tier -->
+    <path d="M680,130 C740,150 795,185 845,230 C815,210 770,180 710,160 Z" fill="#2d3340"/>
+    
+    <!-- Long outer flight feathers (sharp, serrated, damaged) -->
+    <path d="M850,200 C870,240 890,290 895,350 C875,305 850,265 825,235 C845,280 860,335 865,395 C845,340 820,295 795,260 C815,310 830,370 830,430 C810,365 785,315 760,275 C775,330 785,390 780,450 C765,380 745,325 720,285 Z" fill="url(#wingGrad)" stroke="#16181f" stroke-width="1.8"/>
+
+    <!-- Mid-tier tattered feathers -->
+    <path d="M730,160 C765,210 780,270 785,330 C765,285 745,240 710,205 C730,250 745,310 740,370 C720,315 700,270 670,230 C690,280 700,340 690,400 C675,335 655,285 625,245 Z" fill="#1d2028" stroke="#2d3340" stroke-width="1.5"/>
+
+    <!-- Inner wing feathers -->
+    <path d="M625,170 C655,220 665,280 660,340 C645,290 630,245 595,210 C615,260 620,320 610,375 C595,315 580,265 550,230 C565,280 565,335 555,390 C540,330 525,275 495,240 C510,290 510,345 500,400 C485,340 470,285 460,230 Z" fill="#15171e" stroke="#252a34" stroke-width="1.5"/>
+
+    <!-- Distressed tears & bullet-like holes on right wing -->
+    <ellipse cx="760" cy="220" rx="6" ry="12" fill="#0c0d10" stroke="#3f4756" stroke-width="1.5" transform="rotate(20 760 220)"/>
+    <ellipse cx="680" cy="250" rx="8" ry="16" fill="#0c0d10" stroke="#3f4756" stroke-width="1.5" transform="rotate(-15 680 250)"/>
+    <ellipse cx="600" cy="270" rx="5" ry="10" fill="#0c0d10" stroke="#3f4756" stroke-width="1.5" transform="rotate(30 600 270)"/>
+
+    <!-- Barbed wire wrapped around right wing joint -->
+    <path d="M610,120 Q625,135 640,125 T670,135 T700,130" stroke="#8c96a8" stroke-width="2" fill="none"/>
+    <!-- Barbs -->
+    <line x1="622" y1="124" x2="628" y2="136" stroke="#c93b3b" stroke-width="2"/>
+    <line x1="628" y1="125" x2="622" y2="135" stroke="#c93b3b" stroke-width="2"/>
+    <line x1="668" y1="130" x2="674" y2="142" stroke="#c93b3b" stroke-width="2"/>
+    <line x1="674" y1="131" x2="668" y2="141" stroke="#c93b3b" stroke-width="2"/>
+  </g>
+
+  <!-- FALLING SHREDDED FEATHERS -->
+  <g fill="url(#wingGrad)" stroke="#2b313d" stroke-width="1" opacity="0.75">
+    <!-- Feather 1 -->
+    <path d="M220,180 C200,200 190,230 195,250 C185,230 185,205 210,185 Z" transform="rotate(-25 205 215)"/>
+    <!-- Feather 2 -->
+    <path d="M160,250 C145,270 140,295 145,315 C135,295 138,275 155,255 Z" transform="rotate(15 150 280)"/>
+    <!-- Feather 3 -->
+    <path d="M480,270 C470,290 468,310 472,325 C465,310 467,295 478,275 Z" transform="rotate(35 475 300)"/>
+    <!-- Feather 4 -->
+    <path d="M720,410 C710,430 705,450 710,465 C702,450 705,435 718,415 Z" transform="rotate(-15 715 440)"/>
+  </g>
+</svg>
+
